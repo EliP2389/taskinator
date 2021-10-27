@@ -63,6 +63,8 @@ for (var i = 0; i < tasks.length; i++) {
     tasks[i].name = taskName;
     tasks[i].type = taskType;
   }
+
+  saveTasks();
 };
 
   alert("Task Updated!");
@@ -75,8 +77,6 @@ var createTaskEl = function (taskDataObj) {
   var listItemEl = document.createElement("li");
   listItemEl.className = "task-item";
 
-  console.log(taskDataObj);
-  console.log(taskDataObj.status);
   // add task id as a custom attribute
   listItemEl.setAttribute("data-task-id", taskIdCounter);
 
@@ -95,6 +95,8 @@ var createTaskEl = function (taskDataObj) {
   taskDataObj.id = taskIdCounter;
 
   tasks.push(taskDataObj);
+
+  saveTasks();
 
   // increase taks counter for next unique id
   taskIdCounter++;
@@ -203,7 +205,8 @@ for (var i = 0; i < tasks.length; i++) {
 // reassign tasks array to be the same as updatedTaskArr
 tasks = updatedTaskArr;
 
-};
+saveTasks();
+}; 
 var taskStatusChangeHandler = function (event) {
   // get the task item's id
   var taskId = event.target.getAttribute("data-task-id");
@@ -229,11 +232,13 @@ for (var i = 0; i < tasks.length; i++) {
   if (tasks[i].id === parseInt(taskId)) {
     tasks[i].status = statusValue;
 
-    console.log(tasks);
   }
 }
+saveTasks;
+}; 
 
-};
-
+var saveTasks = function() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
